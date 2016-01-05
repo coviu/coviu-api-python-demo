@@ -47,7 +47,7 @@ The coviu API uses a number of flows from OAuth2 [rfc6749](https://tools.ietf.or
 
 #### Getting access
 
-You will have been issued an `api_key` and `api_key_secret`. These are similar to a username and password for various API operations. In order to access the REST API, you will need secure an access token. This can be acheived by following the [OAuth2 Client Credentials Grant](https://tools.ietf.org/html/rfc6749#section-4.4).
+You will have been issued an `api_key` and `api_key_secret`. These are similar to a username and password for various API operations. In order to access the REST API, you will need secure an access token. This can be achieved by following the [OAuth2 Client Credentials Grant](https://tools.ietf.org/html/rfc6749#section-4.4).
 
 
 ```
@@ -162,12 +162,12 @@ The JWT for the owner of a session must be signed over the following claims
 ```
 {
     "iss": string - issuer: must be your api_key,
-    "un": string - user name: the screen name of ther user,
+    "un": string - user name: the screen name of their user,
     "ref": string - ref: the reference used for creating the subscription,
     "sid": string - session id: a string identifying the session,
     "img": string - OPTIONAL image: a url of the user's profile picture,
     "email": string - email: the email address of the user,
-    "rle": string - role: the role of the user in the call. May be set to 'owner',
+    "rle": string - role: the role of the user in the call. Must be set to 'owner',
     "rtn": string - OPTIONAL return url: The url to send the user to after the call has finished.,
     "nbf": number - OPTIONAL not before: The epoch timestamp (seconds) that the session may start,
     "exp": number - OPTIONAL expiry: The epoch timestamp (seconds) that the session may end
@@ -181,11 +181,11 @@ The JWT for the guests session must be signed over the following claims
 ```
 {
     "iss": string - issuer: must be your api_key,
-    "un": string - user name: the screen name of ther user,
+    "un": string - user name: the screen name of their user,
     "ref": string - ref: the reference used for creating the subscription of the owner,
     "sid": string - session id: a string identifying the session,
     "img": string - OPTIONAL image: a url of the user's profile picture,
-    "rle": string - role: the role of the user in the call. May be set to 'guest',
+    "rle": string - role: the role of the user in the call. Must be set to 'guest',
     "rtn": string - OPTIONAL return url: The url to send the user to after the call has finished.,
     "nbf": number - OPTIONAL not before: The epoch timestamp (seconds) that the session may start,
     "exp": number - OPTIONAL expiry: The epoch timestamp (seconds) that the session may end
