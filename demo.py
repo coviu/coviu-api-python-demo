@@ -106,7 +106,7 @@ subscription = create_subscription(grant['access_token'],
                                    api_root, {
                                     'ref': subscription_ref,
                                     'name': 'Dr. Jane Who',
-                                    'email': 'briely.marum@gmail.com'
+                                    'email': 'test@test.com'
                                     })
 
 # Get a page of sessions for
