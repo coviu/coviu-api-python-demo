@@ -2,7 +2,6 @@
     Demonstration of using the coviu REST API.
     Author: Briely Marum <briley.marum@nicta.com.au>
     Date: 18 Dec 2015
-    Copyrite: NICTA 2015 All rights reserverd.
 '''
 
 import requests
