@@ -118,7 +118,7 @@ subscriptions = get_subscriptions(grant['access_token'], api_root)
 
 # Get all sessions for that subscription
 for sub in subscriptions['content']:
-    print get_link(grant['access_token'], sub['_links']['sessions'])
+    get_link(grant['access_token'], sub['_links']['sessions'])
 
 # Get the entire set of subscriptions traversing forward
 while 'next' in subscriptions['_links']:
