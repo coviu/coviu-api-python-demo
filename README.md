@@ -144,6 +144,9 @@ Response: 200; application/json;UTF-8
         },
         "self": {
             "href": "/v1/orgs/<org id>/subscriptions/<subscriptionId>"
+        },
+        "sessions": {
+          "href": "/v1/orgs/<org id>/subscriptions/<subscription id>/sessions?page=0&count=200"
         }
     }
 }
@@ -205,6 +208,39 @@ Some points to note:
 * You don't need to create a new subscription for the guest in a session. Only the owner needs to have a subscription.
 * A single subscription may not be used for multiple sessions at the same time. Multiple entries to the same session by a single subscription are allowed.
 
+### Get a subscription
+
+Get the content and links for a specific subscription
+
+```
+GET /v1/orgs/<org id>/subscriptions/<subscriptionId>
+Authorization: Bearer <access token ...>
+Response: 200; application/json;UTF-8
+{
+    "content": {
+        "ref": string,
+        "name": string,
+        "started": number,
+        "ended": number,
+        "orgId": string,
+        "active": boolean - false,
+        "subscriptionId": string,
+        "email": string
+    },
+    "_links": {
+        "org": {
+            "href": "/v1/orgs/<org id>"
+        },
+        "self": {
+            "href": "/v1/orgs/<org id>/subscriptions/<subscriptionId>"
+        },
+        "sessions": {
+          "href": "/v1/orgs/<org id>/subscriptions/<subscription id>/sessions?page=0&count=200"
+        }
+    }
+}
+
+```
 ### Removing a subscription
 
 Removing a subscription means the user may no longer host sessions in coviu.
@@ -230,6 +266,9 @@ Response: 200; application/json;UTF-8
         },
         "self": {
             "href": "/v1/orgs/<org id>/subscriptions/<subscriptionId>"
+        },
+        "sessions": {
+          "href": "/v1/orgs/<org id>/subscriptions/<subscription id>/sessions?page=0&count=200"
         }
     }
 }
@@ -265,6 +304,58 @@ Get pages of session entries. Session entries represent instances of the system 
 
 ```
 GET /v1/orgs/<org id>/session?page=1&count=200
+Authorization: Bearer <access token ...>
+Response: 200; application/json;UTF-8
+{
+    "content": [{
+      "content": {
+          "name": string,
+          "accessToken": string,
+          "clientId": string,
+          "sessionId": string,
+          "orgId": string,
+          "entryTime": number,
+          "entryId": string,
+          "subscriptionId": string,
+          "role": string,
+          "peerId": string
+      },
+      "_links": {
+          "org": {
+              "href": "/v1/orgs/<org id>"
+          },
+          "self": {
+              "href": "/v1/orgs/<org id>/sessions/<session id>"
+          },
+          "client": {
+              "href": "/v1/orgs/<org id>/clients/<client id>"
+          },
+          "subscription": {
+              "href": "/v1/orgs/<org id>/subscriptions/<subscription id>"
+          }
+      }
+    },
+    ...],
+    "_links": {
+        "next": {
+            "href": "/v1/orgs/<org id>/subscriptions?page=2&count=200"
+        },
+        "self": {
+            "href": "/v1/orgs/<org id>/subscriptions?page=1&count=200"
+        },
+        "previous": {
+            "href": "/v1/orgs/<org id>/subscriptions?page=0&count=200"
+        }
+    }
+}
+```
+
+### Get session entries for a subscription
+
+Gets pages of session entries for a specific subscription
+
+```
+GET /v1/orgs/<org id>/subscriptions/<subscription id>/sessions?page=1&count=200
 Authorization: Bearer <access token ...>
 Response: 200; application/json;UTF-8
 {
