@@ -35,11 +35,11 @@ The API endpoint during the beta period is [https://api.covi.io](https://api.cov
 
 Before we start, we need to define a couple of terms that will be used through this document.
 
-* Session - A web (video, audio, data) call on coviu through either a browser, native app, or mobile. Currently sessions may have up to 5 participants.
-* Session Owner - The user (person) hosting a session. Controls access to the session.
-* Session Guest - A user (person) who has been granted access to a session by the session owner.
-* Subscription - A user who has arranged to have access to the system for the purposes of hosting sessions.
-* Client - An API consumer (software) making request to access protected resources [rfc6749](https://tools.ietf.org/html/rfc6749#section-1.1).
+* Session - A web (video, audio, data) call on coviu through either a browser, native app, or mobile. Currently sessions may have up to 5 participants. [also: an appointment]
+* Session Owner - The user (person) hosting a session. Controls access to the session. [also: a practitioner]
+* Session Guest - A user (person) who has been granted access to a session by the session owner. [also: a patient]
+* Subscription - A user who has arranged to have access to the system for the purposes of hosting sessions. [also: a practitioner of a practice group] 
+* Client - An API consumer (software) making request to access protected resources [also: a practice group] [rfc6749](https://tools.ietf.org/html/rfc6749#section-1.1).
 
 ### Authentication
 
@@ -122,9 +122,9 @@ POST /v1/orgs/<org id>/subscriptions
 Authorization: Bearer <access token ...>
 Body:
 {
-  "ref": string,
-  "email": string,
-  "name": string
+  "ref": string, [limit: 256 char]
+  "email": string, [limit: 256 char]
+  "name": string [limit: 256 char]
 }
 Response: 200; application/json;UTF-8
 {
@@ -164,14 +164,14 @@ The JWT for the owner of a session must be signed over the following claims
 
 ```
 {
-    "iss": string - issuer: must be your api_key,
-    "un": string - user name: the screen name of their user,
-    "ref": string - ref: the reference used for creating the subscription,
-    "sid": string - session id: a string identifying the session,
+    "iss": string - issuer: must be your api_key (256 char),
+    "un": string - user name: the screen name of their user (256 char),
+    "ref": string - ref: the reference used for creating the subscription (256 char),
+    "sid": string - session id: a string identifying the session (256 char),
     "img": string - OPTIONAL image: a url of the user's profile picture,
-    "email": string - email: the email address of the user,
+    "email": string - email: the email address of the user (256 char),
     "rle": string - role: the role of the user in the call. Must be set to 'owner',
-    "rtn": string - OPTIONAL return url: The url to send the user to after the call has finished.,
+    "rtn": string - OPTIONAL return url: The url to send the user to after the call has finished,
     "nbf": number - OPTIONAL not before: The epoch timestamp (seconds) that the session may start,
     "exp": number - OPTIONAL expiry: The epoch timestamp (seconds) that the session may end
 }
@@ -183,10 +183,10 @@ The JWT for the guests session must be signed over the following claims
 
 ```
 {
-    "iss": string - issuer: must be your api_key,
-    "un": string - user name: the screen name of their user,
-    "ref": string - ref: the reference used for creating the subscription of the owner,
-    "sid": string - session id: a string identifying the session,
+    "iss": string - issuer: must be your api_key (256 char),
+    "un": string - user name: the screen name of their user (256 char),
+    "ref": string - ref: the reference used for creating the subscription of the owner (256 char),
+    "sid": string - session id: a string identifying the session (256 char),
     "img": string - OPTIONAL image: a url of the user's profile picture,
     "rle": string - role: the role of the user in the call. Must be set to 'guest',
     "rtn": string - OPTIONAL return url: The url to send the user to after the call has finished.,
